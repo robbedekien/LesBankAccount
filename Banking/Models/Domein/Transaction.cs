@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Banking.Models.Domein
 {
-    class Transaction
+    public class Transaction
     {
         #region Properties
         public decimal Amount { get; }

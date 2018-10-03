@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Banking.Models.Domein
 {
-    class BankAccount
+    public class BankAccount
     {
         private decimal _balance;
         private ICollection<Transaction> _transactions;
@@ -19,7 +19,7 @@ namespace Banking.Models.Domein
             {
                 return _balance;
             }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentException("No negative balance allowed");
@@ -51,10 +51,27 @@ namespace Banking.Models.Domein
             _transactions.Add(new Transaction(amount, TransactionType.Deposit));
         }
 
-        public void Withdraw(decimal amount)
+        public virtual void Withdraw(decimal amount)
         {
             Balance -= amount;
             _transactions.Add(new Transaction(amount, TransactionType.Withdraw));
+        }
+
+        public override string ToString()
+        {
+            return $"{AccountNumber} -- {Balance}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            BankAccount ba = obj as BankAccount;
+            if (ba == null) return false;
+            return AccountNumber == ba.AccountNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            return AccountNumber.GetHashCode();
         }
 
         #endregion

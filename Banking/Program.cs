@@ -20,6 +20,18 @@ namespace Banking
             {
                 Console.WriteLine($"{item.Amount} -- {item.DateOfTransaction} -- {item.TransactionType}");
             }
+
+            SavingsAccount mySA = new SavingsAccount("123-12312312-67", 0.01M);
+            mySA.Deposit(1000);
+            mySA.addIntrest();
+            mySA.Withdraw(10);
+            Console.WriteLine($"Balance of savingsAccount is: {mySA.Balance}");
+
+            foreach (var item in myBA.Transactions)
+            {
+                Console.WriteLine($"{item.Amount} -- {item.DateOfTransaction} -- {item.TransactionType}");
+            }
+
             Console.ReadKey();
         }
     }
