@@ -6,20 +6,12 @@ namespace Banking.Models.Domein
 {
     class BankAccount
     {
-        private string _accountNumber;
         private decimal _balance;
+        private ICollection<Transaction> _transactions;
 
+
+        #region Properties
         public string AccountNumber { get; private set; }
-
-        //public decimal GetBalance()
-        //{
-        //    return _balance;
-        //}
-
-        //public void SetBalance(decimal value)
-        //{
-        //    _balance = value;
-        //}
 
         public decimal Balance
         {
@@ -34,27 +26,35 @@ namespace Banking.Models.Domein
                 _balance = value;
             }
         }
+
+        public IEnumerable<Transaction> Transactions { get { return _transactions; }} 
+        #endregion
+
         #region Constructors
         public BankAccount(string accountNumber)
         {
             AccountNumber = accountNumber;
+            _transactions = new List<Transaction>();
         }
 
         public BankAccount(string accountNumber, decimal balance) : this(accountNumber)
         {
             Balance = balance;
         }
+
         #endregion
 
         #region Methodes
         public void Deposit(decimal amount)
         {
             Balance += amount;
+            _transactions.Add(new Transaction(amount, TransactionType.Deposit));
         }
 
         public void Withdraw(decimal amount)
         {
             Balance -= amount;
+            _transactions.Add(new Transaction(amount, TransactionType.Withdraw));
         }
 
         #endregion

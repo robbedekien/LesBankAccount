@@ -1,5 +1,6 @@
 ﻿using Banking.Models.Domein;
 using System;
+using System.Collections.Generic;
 
 namespace Banking
 {
@@ -14,6 +15,11 @@ namespace Banking
             Console.WriteLine($"Balance is {myBA.Balance} Euro");
             myBA.Withdraw(50);
             Console.WriteLine($"Balance is {myBA.Balance} Euro");
+
+            foreach (var item in myBA.Transactions)
+            {
+                Console.WriteLine($"{item.Amount} -- {item.DateOfTransaction} -- {item.TransactionType}");
+            }
             Console.ReadKey();
         }
     }
